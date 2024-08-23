@@ -1,0 +1,17 @@
+{
+    "name": "mohamed/local-host",
+    "autoload": {
+        "psr-4": {
+            "Creational\\": "Creational"
+        }
+    },
+    "authors": [
+        {
+            "name": "MohamedEmadQS",
+            "email": "memad@qurtobasolutions.com"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^11.3"
+    }
+}
