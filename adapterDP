@@ -1,0 +1,102 @@
+<?php
+
+class SpeachToTextResponse
+{
+    private string $text;
+    private $sourceFile;
+
+    public function __construct(string $text, string $sourceFile)
+    {
+        $this->text = $text;
+        $this->sourceFile = $sourceFile;
+    }
+
+    public function getText(): string
+    {
+        return $this->text;
+    }
+
+    public function getSourceFile(): string
+    {
+        return $this->sourceFile;
+    }
+}
+
+interface SpeechToTextInterface
+{
+    public function process($audioFile): void;
+    public function setText($text): void;
+    public function getText(): string;
+}
+
+class WhisperAdapter implements SpeechToTextInterface
+{
+    private $text;
+
+    public function process($audioFile): void
+    {
+        // TODO: Implement process() method.
+        $this->setText("Listen Michael, you've got another problem: we've always figured out the truth.");
+    }
+
+    public function setText($text): void
+    {
+        $this->text = $text;
+    }
+
+    public function getText(): string
+    {
+        return $this->text;
+    }
+}
+
+class SeamlessAdapter implements SpeechToTextInterface
+{
+    private $text;
+
+    public function process($audioFile): void
+    {
+        // TODO: Implement process() method.
+
+        $this->setText("Listen Michael, you've got another problem: we've always figured out the truth.");
+    }
+
+    public function setText($text): void
+    {
+        $this->text = $text;
+    }
+    public function getText(): string
+    {
+        return $this->text;
+    }
+}
+
+class SpeechToTextService
+{
+    private $adapter;
+
+    public function __construct(SpeechToTextInterface $adapter)
+    {
+        $this->adapter = $adapter;
+    }
+
+    public function processAudio($audioFile): SpeachToTextResponse
+    {
+
+        $this->adapter->process($audioFile);
+
+        return new SpeachToTextResponse($this->adapter->getText(), $audioFile);
+    }
+}
+
+
+$speechToTextService = new SpeechToTextService(new WhisperAdapter());
+$speacthToTextResponse1 = $speechToTextService->processAudio("audioFile.wav");
+var_dump($speacthToTextResponse1);
+
+echo "<hr>";
+
+$speechToTextService = new SpeechToTextService(new SeamlessAdapter());
+$speacthToTextResponse2 = $speechToTextService->processAudio("audioFile.wav");
+
+var_dump($speacthToTextResponse2);
